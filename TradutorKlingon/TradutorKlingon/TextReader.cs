@@ -15,6 +15,7 @@ namespace TradutorKlingon
         string lettersFOO = "s,l,f,w,k";
         List<Words> listOfWords = new List<Words>();
         StreamWriter x;
+        int cont = 0;
 
         public void CountPreposition()
         {
@@ -131,7 +132,7 @@ namespace TradutorKlingon
         {
             try
             {
-                string path = 
+                string path =
                     @"C:\Users\fabio\Documents\Visual Studio 2019\Project\tradutor-klingon\TradutorKlingon\TradutorKlingon\Files\klingon-textoB-ordenado.txt";
                 x = File.CreateText(path);
 
@@ -331,6 +332,128 @@ namespace TradutorKlingon
             {
                 Console.WriteLine("Error SortText" + ex.Message);
             }
+        }
+
+        public void CountNumbers()
+        {
+
+            try
+            {
+                listString.AddRange(text);
+                foreach (string item in listString)
+                {
+                    ulong al = _changeNumber(item);
+                }
+                Console.WriteLine(cont);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error CountNumbers" + ex.Message);
+            }
+        }
+
+        private ulong _changeNumber(string item)
+        {
+            try
+            {
+                int weightLetter = 0;
+                List<int> li = new List<int>();
+                ulong soma = 0;
+
+                for (int i = (item.Length - 1); i >= 0; i--)
+                {
+                    weightLetter = 0;
+                    switch (item[i].ToString())
+                    {
+                        case "k":
+                            weightLetter = 0;
+                            break;
+                        case "b":
+                            weightLetter = 1;
+                            break;
+                        case "w":
+                            weightLetter = 2;
+                            break;
+                        case "r":
+                            weightLetter = 3;
+                            break;
+                        case "q":
+                            weightLetter = 4;
+                            break;
+                        case "d":
+                            weightLetter = 5;
+                            break;
+                        case "n":
+                            weightLetter = 6;
+                            break;
+                        case "f":
+                            weightLetter = 7;
+                            break;
+                        case "x":
+                            weightLetter = 8;
+                            break;
+                        case "j":
+                            weightLetter = 9;
+                            break;
+                        case "m":
+                            weightLetter = 10;
+                            break;
+                        case "l":
+                            weightLetter = 11;
+                            break;
+                        case "v":
+                            weightLetter = 12;
+                            break;
+                        case "h":
+                            weightLetter = 13;
+                            break;
+                        case "t":
+                            weightLetter = 14;
+                            break;
+                        case "c":
+                            weightLetter = 15;
+                            break;
+                        case "g":
+                            weightLetter = 16;
+                            break;
+                        case "z":
+                            weightLetter = 17;
+                            break;
+                        case "p":
+                            weightLetter = 18;
+                            break;
+                        case "s":
+                            weightLetter = 19;
+                            break;
+                        default:
+                            break;
+                    }
+
+
+                    li.Add(weightLetter);
+
+                }
+
+                for (int i = 1; i <= li.Count; i++)
+                {
+                    var resultPow = (ulong)li[i - 1] * Math.Pow(20, i - 1);
+                    soma += (ulong)resultPow;
+                }
+
+                int porra = 440566;
+                if (soma >= (ulong)porra && (soma % 3) == 0)
+                {
+                    cont++;
+                }
+
+                return soma;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         private void _writeTxt(List<Words> listOfWords)

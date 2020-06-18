@@ -17,6 +17,9 @@ namespace TradutorKlingon
             textReader.CountVerbs();
 
 
+            Console.WriteLine("----------- Contador de Verbos");
+            textReader.SortText();
+
             Console.ReadLine();
 
 
